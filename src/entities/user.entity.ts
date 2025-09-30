@@ -1,6 +1,7 @@
 import { Entity, Column, OneToMany } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { BaseEntity } from 'src/utils/base/base.entity';
+import { Borrowing } from './borrow.entity';
 
 export enum UserRole {
   ADMIN = 'admin',
@@ -35,4 +36,7 @@ export class User extends BaseEntity {
 
   @Column({ nullable: true })
   address?: string;
+
+  @OneToMany(() => Borrowing, (borrowing) => borrowing.user)
+  borrowings: Borrowing[];
 }

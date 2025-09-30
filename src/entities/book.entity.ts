@@ -1,5 +1,6 @@
 import { BaseEntity } from 'src/utils/base/base.entity';
 import { Entity, Column, OneToMany } from 'typeorm';
+import { Borrowing } from './borrow.entity';
 
 @Entity('books')
 export class Book extends BaseEntity {
@@ -32,4 +33,7 @@ export class Book extends BaseEntity {
 
   @Column({ name: 'cover_image', nullable: true })
   coverImage?: string;
+
+  @OneToMany(() => Borrowing, (borrowing) => borrowing.book)
+  borrowings: Borrowing[];
 }
