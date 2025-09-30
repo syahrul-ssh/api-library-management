@@ -1,0 +1,515 @@
+{
+	"info": {
+		"_postman_id": "700137d9-b159-4c3b-b67c-15419352bb83",
+		"name": "Api Library Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16238301"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"syahrul@email.com\",\r\n    \"password\": \"Test123!\",\r\n    \"role\": \"admin\",\r\n    \"fullName\": \"Syahrul Safarudin Hasan\",\r\n    \"phoneNumber\": \"08992134321\",\r\n    \"address\": \"Bandung\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/auth/register",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"syahrul@email.com\",\r\n    \"password\": \"Test123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "get all user (admin only)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN5YWhydWxAZW1haWwuY29tIiwic3ViIjoiYzBhODg0YzYtODNlMS00OTgwLTk2ZTQtYjk2OThjNTdiYjgzIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU5MjU3MTM4LCJleHAiOjE3NTkzNDM1Mzh9.4RZ2C24hNb907QEK8LbFxNRuRdnYh8mKp1g5Kbrmn18",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/users",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN5YWhydWxAZW1haWwuY29tIiwic3ViIjoiYzBhODg0YzYtODNlMS00OTgwLTk2ZTQtYjk2OThjNTdiYjgzIiwicm9sZSI6Im1lbWJlciIsImlhdCI6MTc1OTI1NTYwMCwiZXhwIjoxNzU5MzQyMDAwfQ.4eK-SU8q-x5xJpb8ZR66M0d3Imz9a-FmBiqwyKZtL7s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/users/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "c0a884c6-83e1-4980-96e4-b9698c57bb83"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user (admin only)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN5YWhydWxAZW1haWwuY29tIiwic3ViIjoiYzBhODg0YzYtODNlMS00OTgwLTk2ZTQtYjk2OThjNTdiYjgzIiwicm9sZSI6Im1lbWJlciIsImlhdCI6MTc1OTI1NTYwMCwiZXhwIjoxNzU5MzQyMDAwfQ.4eK-SU8q-x5xJpb8ZR66M0d3Imz9a-FmBiqwyKZtL7s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"syahrul@email.com\",\r\n    \"password\": \"Test123!\",\r\n    \"fullName\": \"Syahrul Safarudin Hasan\",\r\n    \"phoneNumber\": \"08992134321\",\r\n    \"address\": \"Bandung\",\r\n    \"isActive\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "c0a884c6-83e1-4980-96e4-b9698c57bb83"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete user (admin only)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN5YWhydWxAZW1haWwuY29tIiwic3ViIjoiYzBhODg0YzYtODNlMS00OTgwLTk2ZTQtYjk2OThjNTdiYjgzIiwicm9sZSI6Im1lbWJlciIsImlhdCI6MTc1OTI1NTYwMCwiZXhwIjoxNzU5MzQyMDAwfQ.4eK-SU8q-x5xJpb8ZR66M0d3Imz9a-FmBiqwyKZtL7s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/users/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "c0a884c6-83e1-4980-96e4-b9698c57bb83"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Book",
+			"item": [
+				{
+					"name": "create book (only admin & librarian)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN5YWhydWxAZW1haWwuY29tIiwic3ViIjoiYzBhODg0YzYtODNlMS00OTgwLTk2ZTQtYjk2OThjNTdiYjgzIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU5MjU3MTM4LCJleHAiOjE3NTkzNDM1Mzh9.4RZ2C24hNb907QEK8LbFxNRuRdnYh8mKp1g5Kbrmn18",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Clean Code\",\r\n  \"author\": \"Robert C. Martin\",\r\n  \"isbn\": \"9780132350884\",\r\n  \"description\": \"A Handbook of Agile Software Craftsmanship\",\r\n  \"publisher\": \"Prentice Hall\",\r\n  \"publishedYear\": 2008,\r\n  \"category\": \"Programming\",\r\n  \"totalCopies\": 10,\r\n  \"coverImage\": \"https://example.com/images/book.jpg\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/books",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update book (only admin & librarian) Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN5YWhydWxAZW1haWwuY29tIiwic3ViIjoiYzBhODg0YzYtODNlMS00OTgwLTk2ZTQtYjk2OThjNTdiYjgzIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU5MjU3MTM4LCJleHAiOjE3NTkzNDM1Mzh9.4RZ2C24hNb907QEK8LbFxNRuRdnYh8mKp1g5Kbrmn18",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Clean Code\",\r\n  \"author\": \"Robert C. Martin\",\r\n  \"isbn\": \"9780132350884\",\r\n  \"description\": \"A Handbook of Agile Software Craftsmanship\",\r\n  \"publisher\": \"Prentice Hall\",\r\n  \"publishedYear\": 2008,\r\n  \"category\": \"Programming\",\r\n  \"totalCopies\": 11,\r\n  \"coverImage\": \"https://example.com/images/book.jpg\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/books/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"books",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "a6f994c5-9f4f-4721-b8ea-e9c1c18633c7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete book (only admin & librarian)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN5YWhydWxAZW1haWwuY29tIiwic3ViIjoiYzBhODg0YzYtODNlMS00OTgwLTk2ZTQtYjk2OThjNTdiYjgzIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU5MjU3MTM4LCJleHAiOjE3NTkzNDM1Mzh9.4RZ2C24hNb907QEK8LbFxNRuRdnYh8mKp1g5Kbrmn18",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/books/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"books",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "a6f994c5-9f4f-4721-b8ea-e9c1c18633c7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all book",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN5YWhydWxAZW1haWwuY29tIiwic3ViIjoiYzBhODg0YzYtODNlMS00OTgwLTk2ZTQtYjk2OThjNTdiYjgzIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU5MjU3MTM4LCJleHAiOjE3NTkzNDM1Mzh9.4RZ2C24hNb907QEK8LbFxNRuRdnYh8mKp1g5Kbrmn18",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/books",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one book",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN5YWhydWxAZW1haWwuY29tIiwic3ViIjoiYzBhODg0YzYtODNlMS00OTgwLTk2ZTQtYjk2OThjNTdiYjgzIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU5MjU3MTM4LCJleHAiOjE3NTkzNDM1Mzh9.4RZ2C24hNb907QEK8LbFxNRuRdnYh8mKp1g5Kbrmn18",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/books/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"books",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "a6f994c5-9f4f-4721-b8ea-e9c1c18633c7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all book from external API by query",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN5YWhydWxAZW1haWwuY29tIiwic3ViIjoiYzBhODg0YzYtODNlMS00OTgwLTk2ZTQtYjk2OThjNTdiYjgzIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU5MjU3MTM4LCJleHAiOjE3NTkzNDM1Mzh9.4RZ2C24hNb907QEK8LbFxNRuRdnYh8mKp1g5Kbrmn18",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/books/search-external?q=smart",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"books",
+								"search-external"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "smart"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Borrow",
+			"item": [
+				{
+					"name": "borrow book",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN5YWhydWxAZW1haWwuY29tIiwic3ViIjoiYzBhODg0YzYtODNlMS00OTgwLTk2ZTQtYjk2OThjNTdiYjgzIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU5MjU3MTM4LCJleHAiOjE3NTkzNDM1Mzh9.4RZ2C24hNb907QEK8LbFxNRuRdnYh8mKp1g5Kbrmn18",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"bookId\": \"a6f994c5-9f4f-4721-b8ea-e9c1c18633c7\",\r\n    \"notes\": \"untuk dibaca\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/borrowings",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"borrowings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "return book",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN5YWhydWxAZW1haWwuY29tIiwic3ViIjoiYzBhODg0YzYtODNlMS00OTgwLTk2ZTQtYjk2OThjNTdiYjgzIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU5MjU3MTM4LCJleHAiOjE3NTkzNDM1Mzh9.4RZ2C24hNb907QEK8LbFxNRuRdnYh8mKp1g5Kbrmn18",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/borrowings/:id/return",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"borrowings",
+								":id",
+								"return"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "c300e93b-92cb-44e3-ba9d-4dd422fd24a2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
