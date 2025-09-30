@@ -4,12 +4,16 @@ import { AppService } from './app.service';
 import { DatabaseModule } from './config/database/database.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
+import { PublicApiModule } from './public-api/public-api.module';
+import { BooksModule } from './modules/book/book.module';
 
 @Module({
   imports: [
     DatabaseModule,
     AuthModule,
-    UsersModule
+    UsersModule,
+    PublicApiModule,
+    BooksModule
   ],
   controllers: [AppController],
   providers: [AppService],
