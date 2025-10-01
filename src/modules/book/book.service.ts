@@ -4,21 +4,31 @@ import { Book } from 'src/entities/book.entity';
 import { Repository, Like } from 'typeorm';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
+import { AuditService } from '../audit-log/audit-log.service';
 
 @Injectable()
 export class BooksService {
   constructor(
     @InjectRepository(Book)
     private booksRepository: Repository<Book>,
+    private auditService: AuditService,
   ) {}
 
-  async create(createBookDto: CreateBookDto): Promise<Book> {
+  async create(createBookDto: CreateBookDto, userId: string): Promise<Book> {
     const book = this.booksRepository.create({
       ...createBookDto,
       availableCopies: createBookDto.totalCopies,
     });
 
     const savedBook = await this.booksRepository.save(book);
+
+    this.auditService.log({
+      userId,
+      action: 'BOOK_CREATED',
+      entity: 'Book',
+      entityId: savedBook.id,
+      newValue: savedBook,
+    });
 
     return savedBook;
   }
@@ -59,8 +69,9 @@ export class BooksService {
     return book;
   }
 
-  async update(id: string, updateBookDto: UpdateBookDto): Promise<Book> {
+  async update(id: string, updateBookDto: UpdateBookDto, userId: string): Promise<Book> {
     const book = await this.findOne(id);
+    const oldValue = { ...book };
 
     Object.assign(book, {
       ...updateBookDto,
@@ -68,11 +79,28 @@ export class BooksService {
 
     const updatedBook = await this.booksRepository.save(book);
 
+    this.auditService.log({
+      userId,
+      action: 'BOOK_UPDATED',
+      entity: 'Book',
+      entityId: updatedBook.id,
+      oldValue,
+      newValue: updatedBook,
+    });
+
     return updatedBook;
   }
 
-  async remove(id: string): Promise<void> {
+  async remove(id: string, userId: string): Promise<void> {
     const book = await this.findOne(id);
+
+    this.auditService.log({
+      userId,
+      action: 'BOOK_DELETED',
+      entity: 'Book',
+      entityId: book.id,
+      oldValue: book,
+    });
 
     await this.booksRepository.softRemove(book);
   }

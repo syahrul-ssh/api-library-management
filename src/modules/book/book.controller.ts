@@ -17,6 +17,7 @@ import { BooksService } from './book.service';
 import { BookSearchResult, ExternalApiService } from 'src/public-api/open-library-api/open-library-api.service';
 import { Roles } from 'src/utils/decorator/roles.decorator';
 import { UserRole } from 'src/entities/user.entity';
+import { CurrentUser } from 'src/utils/decorator/user.decorator';
 
 @Controller('books')
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -28,8 +29,8 @@ export class BooksController {
 
   @Post()
   @Roles(UserRole.ADMIN, UserRole.LIBRARIAN)
-  create(@Body() createBookDto: CreateBookDto) {
-    return this.booksService.create(createBookDto);
+  create(@Body() createBookDto: CreateBookDto, @CurrentUser() user: any) {
+    return this.booksService.create(createBookDto, user.id);
   }
 
   @Get()
@@ -52,13 +53,14 @@ export class BooksController {
   update(
     @Param('id') id: string,
     @Body() updateBookDto: UpdateBookDto,
+    @CurrentUser() user: any
   ) {
-    return this.booksService.update(id, updateBookDto);
+    return this.booksService.update(id, updateBookDto, user.id);
   }
 
   @Delete(':id')
   @Roles(UserRole.ADMIN)
-  remove(@Param('id') id: string) {
-    return this.booksService.remove(id);
+  remove(@Param('id') id: string, @CurrentUser() user: any) {
+    return this.booksService.remove(id, user.id);
   }
 }

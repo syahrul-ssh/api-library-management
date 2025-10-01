@@ -2,6 +2,7 @@ import { Entity, Column, OneToMany } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { BaseEntity } from 'src/utils/base/base.entity';
 import { Borrowing } from './borrow.entity';
+import { AuditLog } from './audit-log.entity';
 
 export enum UserRole {
   ADMIN = 'admin',
@@ -39,4 +40,7 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Borrowing, (borrowing) => borrowing.user)
   borrowings: Borrowing[];
+
+  @OneToMany(() => AuditLog, (auditLog) => auditLog.user)
+  auditLogs: AuditLog[];
 }

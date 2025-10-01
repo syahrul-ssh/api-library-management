@@ -4,6 +4,7 @@ import { Book } from 'src/entities/book.entity';
 import { Borrowing, BorrowingStatus } from 'src/entities/borrow.entity';
 import { Repository, DataSource } from 'typeorm';
 import { CreateBorrowingDto } from './dto/create-borrow.dto';
+import { AuditService } from '../audit-log/audit-log.service';
 
 @Injectable()
 export class BorrowingService {
@@ -13,6 +14,7 @@ export class BorrowingService {
     @InjectRepository(Book)
     private bookRepository: Repository<Book>,
     private dataSource: DataSource,
+    private auditService: AuditService,
   ) {}
 
   async create(createBorrowingDto: CreateBorrowingDto, userId: string) {
@@ -48,6 +50,14 @@ export class BorrowingService {
 
       await queryRunner.commitTransaction();
 
+      this.auditService.log({
+        userId,
+        action: 'BOOK_BORROWED',
+        entity: 'Borrowing',
+        entityId: borrowing.id,
+        newValue: { bookId: book.id, bookTitle: book.title },
+      });
+
       return borrowing;
     } catch (error) {
       await queryRunner.rollbackTransaction();
@@ -57,7 +67,7 @@ export class BorrowingService {
     }
   }
 
-  async returnBook(id: string) {
+  async returnBook(id: string, userId: string) {
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
@@ -95,6 +105,14 @@ export class BorrowingService {
       await queryRunner.manager.save(book);
 
       await queryRunner.commitTransaction();
+
+      this.auditService.log({
+        userId,
+        action: 'BOOK_RETURNED',
+        entity: 'Borrowing',
+        entityId: borrowing.id,
+        newValue: { fee, overdueDays },
+      });
 
       return borrowing;
     } catch (error) {

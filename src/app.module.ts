@@ -7,6 +7,7 @@ import { UsersModule } from './modules/users/users.module';
 import { PublicApiModule } from './public-api/public-api.module';
 import { BooksModule } from './modules/book/book.module';
 import { BorrowingModule } from './modules/borrow/borrow.module';
+import { AuditModule } from './modules/audit-log/audit-log.module';
 
 @Module({
   imports: [
@@ -15,7 +16,8 @@ import { BorrowingModule } from './modules/borrow/borrow.module';
     UsersModule,
     PublicApiModule,
     BooksModule,
-    BorrowingModule
+    BorrowingModule,
+    AuditModule
   ],
   controllers: [AppController],
   providers: [AppService],

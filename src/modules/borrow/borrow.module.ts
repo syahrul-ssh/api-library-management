@@ -4,10 +4,12 @@ import { Book } from 'src/entities/book.entity';
 import { Borrowing } from 'src/entities/borrow.entity';
 import { BorrowingService } from './borrow.service';
 import { BorrowingController } from './borrow.controller';
+import { AuditModule } from '../audit-log/audit-log.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Borrowing, Book]),
+    AuditModule
   ],
   providers: [BorrowingService],
   controllers: [BorrowingController],

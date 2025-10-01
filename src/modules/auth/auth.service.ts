@@ -4,12 +4,14 @@ import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcrypt';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
+import { AuditService } from '../audit-log/audit-log.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
+    private auditService: AuditService,
   ) {}
 
   async register(registerDto: RegisterDto) {
@@ -18,10 +20,17 @@ export class AuthService {
       isActive: true
     });
 
+    this.auditService.log({
+      action: 'USER_REGISTERED',
+      entity: 'User',
+      entityId: user.id,
+      userEmail: user.email,
+    });
+
     return this.generateToken(user);
   }
 
-  async login(loginDto: LoginDto) {
+  async login(loginDto: LoginDto, ipAddress?: string) {
     const user = await this.usersService.findByEmail(loginDto.email);
     
     if (!user || !await bcrypt.compare(loginDto.password, user.password)) {
@@ -31,6 +40,15 @@ export class AuthService {
     if (!user.isActive) {
       throw new UnauthorizedException('User account is inactive');
     }
+
+    this.auditService.log({
+      action: 'USER_LOGIN',
+      entity: 'User',
+      entityId: user.id,
+      userId: user.id,
+      userEmail: user.email,
+      ipAddress,
+    });
 
     return this.generateToken(user);
   }

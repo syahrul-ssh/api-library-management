@@ -32,7 +32,7 @@ export class BorrowingController {
   }
 
   @Patch(':id/return')
-  returnBook(@Param('id') id: string) {
-    return this.borrowingService.returnBook(id);
+  returnBook(@Param('id') id: string, @CurrentUser() user: any) {
+    return this.borrowingService.returnBook(id, user.id);
   }
 }
